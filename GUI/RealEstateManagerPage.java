@@ -26,14 +26,12 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         panel.setBackground(new Color(200,220,255));
         this.add(panel);
 
-        // Title Label
         titleLabel = new JLabel("Real Estate Property Storing ");
         titleLabel.setBounds(250, 10, 400, 30);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(new Color(0,0,128));
         panel.add(titleLabel);
 
-        //Property ID
         idJLabel = new JLabel("Property ID:");
         idJLabel.setBounds(250, 60, 100, 25);
         idJLabel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -43,7 +41,6 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         idJTextField.setBounds(350, 60, 200, 25);
         panel.add(idJTextField);
 
-        //Location
         locationLabel = new JLabel("Location:");
         locationLabel.setBounds(250, 100, 100, 25);
         locationLabel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -53,7 +50,6 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         locationJTextField.setBounds(350, 100, 200, 25);
         panel.add(locationJTextField);
 
-        //Type
         TypeLabel = new JLabel("Type:");
         TypeLabel.setBounds(250, 140, 100, 25);
         TypeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -63,8 +59,6 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         TypeJTextField.setBounds(350, 140, 200, 25);
         panel.add(TypeJTextField);
 
-
-        //Price
         priceLabel = new JLabel("Price:");
         priceLabel.setBounds(250, 180, 100, 25);
         priceLabel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -74,7 +68,6 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         priceJTextField.setBounds(350, 180, 200, 25);   
         panel.add(priceJTextField);
 
-        //Size
         sizLabel = new JLabel("Size:"); 
         sizLabel.setBounds(250, 220, 100, 25);
         sizLabel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -82,8 +75,7 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         sizeJTextField = new JTextField();
         sizeJTextField.setBounds(350, 220, 200, 25);
         panel.add(sizeJTextField);
-        
-        //Status
+
         statusLabel = new JLabel("Status:");
         statusLabel.setBounds(250, 260, 100, 25);
         statusLabel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -92,7 +84,6 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         statusJTextField.setBounds(350, 260, 200, 25);
         panel.add(statusJTextField);
 
-        // Buttons - Row 1
         addButton = new JButton("Add");
         addButton.setBounds(150, 310, 100, 30);
         addButton.addActionListener(this);
@@ -117,7 +108,7 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         loadButton.setBounds(700, 310, 100, 30);
         loadButton.addActionListener(this);
         panel.add(loadButton);
-        // Screen Area
+
         screen = new JTextArea();
         screen.setFont(new Font("Monospaced", Font.PLAIN, 12));
         screen.setEditable(false);
@@ -125,7 +116,6 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         scrollPane.setBounds(50, 360, 775, 290);
         panel.add(scrollPane);
 
-        // Load data and display
         FileIO.FileIO.loadFromFile(properties);
         updateScreen();
         this.setLocationRelativeTo(null);
@@ -143,7 +133,6 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         all += "\nTotal Properties: " + (serial - 1);
         screen.setText(all);
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
