@@ -4,8 +4,6 @@ import realestate.model.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Dialog for adding new properties
@@ -277,13 +275,7 @@ public class AddPropertyDialog extends JDialog {
         JButton addButton = new JButton("Add Property");
         JButton cancelButton = new JButton("Cancel");
         
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addProperty();
-            }
-        });
-        
+        addButton.addActionListener(e -> addProperty());
         cancelButton.addActionListener(e -> dispose());
         
         panel.add(addButton);

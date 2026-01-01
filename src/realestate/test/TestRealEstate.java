@@ -1,6 +1,7 @@
 package realestate.test;
 
 import realestate.model.*;
+import java.util.List;
 
 /**
  * Simple test program to verify the Real Estate system functionality
@@ -84,13 +85,13 @@ public class TestRealEstate {
         
         // Test 5: Search by type
         System.out.println("Test 5: Searching for Apartments...");
-        var apartments = manager.searchByType("Apartment");
+        List<Property> apartments = manager.searchByType("Apartment");
         System.out.println("✓ Found " + apartments.size() + " apartment(s)");
         System.out.println();
         
         // Test 6: Search by price range
         System.out.println("Test 6: Searching properties between $200,000 and $500,000...");
-        var priceRange = manager.searchByPriceRange(200000, 500000);
+        List<Property> priceRange = manager.searchByPriceRange(200000, 500000);
         System.out.println("✓ Found " + priceRange.size() + " property(ies)");
         for (Property p : priceRange) {
             System.out.println("  - " + p.getAddress() + ": $" + p.getPrice());
