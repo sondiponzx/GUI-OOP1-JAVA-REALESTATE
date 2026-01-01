@@ -7,11 +7,10 @@ import Entity.Property;
 
 
 public class RealEstateManagerPage extends JFrame implements ActionListener {
-    JLabel titleLabel, idJLabel, locationLabel,TypeLabel,priceLabel,sizLabel,statusLabel,filterLabel;
-    JTextField idJTextField, locationJTextField,TypeJTextField,priceJTextField,sizeJTextField,statusJTextField,filterJTextField;
+    JLabel titleLabel, idJLabel, locationLabel,TypeLabel,priceLabel,sizLabel,statusLabel;
+    JTextField idJTextField, locationJTextField,TypeJTextField,priceJTextField,sizeJTextField,statusJTextField;
     JButton addButton, updateButton, deleteButton, clearButton,saveButton, loadButton;
     JTextArea screen;
-    JComboBox<String> filterComboBox;
 
     Property[] properties = new Property[100];
 
@@ -93,54 +92,114 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         statusJTextField.setBounds(350, 260, 200, 25);
         panel.add(statusJTextField);
 
-        // Buttons
-        addButton = new JButton("Add Property");
-        addButton.setBounds(250, 310, 120, 30);
+        // Buttons - Row 1
+        addButton = new JButton("Add");
+        addButton.setBounds(150, 310, 100, 30);
         addButton.addActionListener(this);
         panel.add(addButton);
-        updateButton = new JButton("Update ");
-        updateButton.setBounds(380, 310, 120, 30);
+        updateButton = new JButton("Update");
+        updateButton.setBounds(260, 310, 100, 30);
         updateButton.addActionListener(this);
         panel.add(updateButton);
-        deleteButton = new JButton("Delete ");
-        deleteButton.setBounds(510, 310, 120, 30);
+        deleteButton = new JButton("Delete");
+        deleteButton.setBounds(370, 310, 100, 30);
         deleteButton.addActionListener(this);
         panel.add(deleteButton);
-        clearButton = new JButton("Clear ");
-        clearButton.setBounds(640, 310, 120, 30);
+        clearButton = new JButton("Clear");
+        clearButton.setBounds(480, 310, 100, 30);
         clearButton.addActionListener(this);
         panel.add(clearButton);
-        saveButton = new JButton("Save ");
-        saveButton.setBounds(360, 360, 120, 30);
+        saveButton = new JButton("Save");
+        saveButton.setBounds(590, 310, 100, 30);
         saveButton.addActionListener(this);
         panel.add(saveButton);
-        loadButton = new JButton("Load ");
-        loadButton.setBounds(520, 360, 120, 30);
+        loadButton = new JButton("Load");
+        loadButton.setBounds(700, 310, 100, 30);
         loadButton.addActionListener(this);
         panel.add(loadButton);
-        // Filter
-        filterLabel = new JLabel("Filter by Type:");
-        filterLabel.setBounds(290, 410, 100, 25);
-        filterLabel.setFont(new Font("Arial", Font.PLAIN, 14)); 
-        panel.add(filterLabel);
-        filterComboBox = new JComboBox<>(new String[]{"All", "Apartment", "House", "Plot"});
-        filterComboBox.setBounds(390, 410, 200, 25);
-        filterComboBox.addActionListener(this);
-        panel.add(filterComboBox);
         // Screen Area
         screen = new JTextArea();
         screen.setFont(new Font("Monospaced", Font.PLAIN, 12));
         screen.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(screen);
-        scrollPane.setBounds(50, 450, 775,200);
+        scrollPane.setBounds(50, 360, 775, 290);
         panel.add(scrollPane);
-        
 
-
-
-
+        // Load data and display
+        FileIO.FileIO.loadFromFile(properties);
+        updateScreen();
+        this.setLocationRelativeTo(null);
     }
 
-
+    void updateScreen() {
+        String all = "";
+        int serial = 1;
+        for (Property p : properties) {
+            if (p != null) {
+                all += serial + ". " + p.getPropertyID() + ", " + p.getLocation() + ", " + p.getType() + ", " + p.getPrice() + ", " + p.getSize() + ", " + p.getStatus() + "\n";
+                serial++;
+            }
+        }
+        all += "\nTotal Properties: " + (serial - 1);
+        screen.setText(all);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            if (e.getSource() == addButton) {
+                String id = idJTextField.getText();
+                if (!idExists(id)) {
+                    properties[getEmptyIndex()] = new Property(id, locationJTextField.getText(), TypeJTextField.getText(), 
+                            Double.parseDouble(priceJTextField.getText()), Double.parseDouble(sizeJTextField.getText()), statusJTextField.getText());
+                    updateScreen();
+                } else JOptionPane.showMessageDialog(this, "ID already exists!");
+            } else if (e.getSource() == updateButton) {
+                String id = idJTextField.getText();
+                int idx = getIndexById(id);
+                if (idx != -1) {
+                    properties[idx].setLocation(locationJTextField.getText());
+                    properties[idx].setType(TypeJTextField.getText());
+                    properties[idx].setPrice(Double.parseDouble(priceJTextField.getText()));
+                    properties[idx].setSize(Double.parseDouble(sizeJTextField.getText()));
+                    properties[idx].setStatus(statusJTextField.getText());
+                    updateScreen();
+                } else JOptionPane.showMessageDialog(this, "Property not found!");
+            } else if (e.getSource() == deleteButton) {
+                String id = idJTextField.getText();
+                int idx = getIndexById(id);
+                if (idx != -1) {
+                    properties[idx] = null;
+                    updateScreen();
+                } else JOptionPane.showMessageDialog(this, "Property not found!");
+            } else if (e.getSource() == loadButton) {
+                FileIO.FileIO.loadFromFile(properties);
+                updateScreen();
+            } else if (e.getSource() == saveButton) {
+                FileIO.FileIO.saveChangesToFile(properties);
+                JOptionPane.showMessageDialog(this, "Saved Successfully!");
+            } else if (e.getSource() == clearButton) {
+                idJTextField.setText(""); locationJTextField.setText(""); TypeJTextField.setText(""); 
+                priceJTextField.setText(""); sizeJTextField.setText(""); statusJTextField.setText("");
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Enter valid numeric values for Price and Size!");
+        }
+    }
+
+    int getEmptyIndex() {
+        for (int i = 0; i < properties.length; i++)
+            if (properties[i] == null) return i;
+        return -1;
+    }
+
+    int getIndexById(String id) {
+        for (int i = 0; i < properties.length; i++)
+            if (properties[i] != null && properties[i].getPropertyID().equals(id)) return i;
+        return -1;
+    }
+
+    boolean idExists(String id) {
+        return getIndexById(id) != -1;
+    }
+}
