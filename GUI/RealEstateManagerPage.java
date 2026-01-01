@@ -94,6 +94,10 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         panel.add(updateButton);
         deleteButton = new JButton("Delete");
         deleteButton.setBounds(370, 310, 100, 30);
+        deleteButton.setBackground(new Color(231, 76, 60));
+        deleteButton.setForeground(Color.WHITE);
+        deleteButton.setFont(new Font("Arial", Font.BOLD, 12));
+        deleteButton.setFocusPainted(false);
         deleteButton.addActionListener(this);
         panel.add(deleteButton);
         clearButton = new JButton("Clear");
@@ -106,6 +110,10 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         panel.add(saveButton);
         loadButton = new JButton("Load");
         loadButton.setBounds(700, 310, 100, 30);
+        loadButton.setBackground(new Color(52, 152, 219));
+        loadButton.setForeground(Color.WHITE);
+        loadButton.setFont(new Font("Arial", Font.BOLD, 12));
+        loadButton.setFocusPainted(false);
         loadButton.addActionListener(this);
         panel.add(loadButton);
 
@@ -161,15 +169,28 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
                     properties[idx] = null;
                     updateScreen();
                 } else JOptionPane.showMessageDialog(this, "Property not found!");
-            } else if (e.getSource() == loadButton) {
-                FileIO.FileIO.loadFromFile(properties);
-                updateScreen();
             } else if (e.getSource() == saveButton) {
                 FileIO.FileIO.saveChangesToFile(properties);
                 JOptionPane.showMessageDialog(this, "Saved Successfully!");
             } else if (e.getSource() == clearButton) {
                 idJTextField.setText(""); locationJTextField.setText(""); TypeJTextField.setText(""); 
                 priceJTextField.setText(""); sizeJTextField.setText(""); statusJTextField.setText("");
+            } else if (e.getSource() == loadButton) {
+                try {
+                    int serial = Integer.parseInt(idJTextField.getText());
+                    int idx = getIndexBySerial(serial);
+                    if (idx != -1) {
+                        Property p = properties[idx];
+                        idJTextField.setText(p.getPropertyID());
+                        locationJTextField.setText(p.getLocation());
+                        TypeJTextField.setText(p.getType());
+                        priceJTextField.setText(String.valueOf(p.getPrice()));
+                        sizeJTextField.setText(String.valueOf(p.getSize()));
+                        statusJTextField.setText(p.getStatus());
+                    } else JOptionPane.showMessageDialog(this, "Property not found! Enter a valid serial number.");
+                } catch (NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(this, "Enter a valid serial number!");
+                }
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Enter valid numeric values for Price and Size!");
@@ -188,7 +209,18 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         return -1;
     }
 
-    boolean idExists(String id) {
-        return getIndexById(id) != -1;
+   boolean idExists(String id){
+    return getIndexById(id) != -1;
+   }
+
+    int getIndexBySerial(int serial) {
+        int count = 0;
+        for (int i = 0; i < properties.length; i++) {
+            if (properties[i] != null) {
+                count++;
+                if (count == serial) return i;
+            }
+        }
+        return -1;
     }
 }
