@@ -129,12 +129,17 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
     }
 
-    void updateScreen() {
-        String all = "";
+void updateScreen() {
+        String all = "";// Header
+        all += String.format("%-6s| %-12s| %-15s| %-12s| %-12s| %-10s| %-10s\n", 
+                             "S.No", "Property ID", "Location", "Type", "Price", "Size", "Status");// Column Titles
+        all += "---------------------------------------------------------------------------------------------\n";// Separator
         int serial = 1;
         for (Property p : properties) {
             if (p != null) {
-                all += serial + ". " + p.getPropertyID() + ", " + p.getLocation() + ", " + p.getType() + ", " + p.getPrice() + ", " + p.getSize() + ", " + p.getStatus() + "\n";
+                all += String.format("%-6d| %-12s| %-15s| %-12s| %-12.2f| %-10.2f| %-10s\n",
+                                     serial, p.getPropertyID(), p.getLocation(), p.getType(), 
+                                     p.getPrice(), p.getSize(), p.getStatus());
                 serial++;
             }
         }
