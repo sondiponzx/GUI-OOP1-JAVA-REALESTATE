@@ -42,14 +42,19 @@ GUI-OOP1-JAVA-REALESTATE/
 │       │   ├── House.java              # House property type
 │       │   ├── CommercialProperty.java # Commercial property type
 │       │   └── PropertyManager.java    # Property management logic
-│       └── gui/                # GUI classes (Presentation layer)
-│           ├── RealEstateApp.java      # Main application window
-│           └── AddPropertyDialog.java  # Dialog for adding properties
+│       ├── gui/                # GUI classes (Presentation layer)
+│       │   ├── RealEstateApp.java      # Main application window
+│       │   └── AddPropertyDialog.java  # Dialog for adding properties
+│       └── test/               # Test classes
+│           └── TestRealEstate.java     # Test program
 ├── bin/                        # Compiled class files
 ├── compile.sh                  # Linux/Mac compilation script
 ├── compile.bat                 # Windows compilation script
 ├── run.sh                      # Linux/Mac run script
 ├── run.bat                     # Windows run script
+├── test.sh                     # Linux/Mac test script
+├── test.bat                    # Windows test script
+├── .gitignore                  # Git ignore file
 └── README.md                   # This file
 ```
 
@@ -68,6 +73,9 @@ GUI-OOP1-JAVA-REALESTATE/
 
 # Run the application
 ./run.sh
+
+# Run tests
+./test.sh
 ```
 
 ### On Windows:
@@ -78,6 +86,9 @@ compile.bat
 
 # Run the application
 run.bat
+
+# Run tests
+test.bat
 ```
 
 ### Manual Compilation and Execution:
@@ -88,6 +99,10 @@ javac -d bin -sourcepath src src/realestate/gui/RealEstateApp.java
 
 # Run
 java -cp bin realestate.gui.RealEstateApp
+
+# Run tests
+javac -d bin -sourcepath src src/realestate/test/TestRealEstate.java
+java -cp bin realestate.test.TestRealEstate
 ```
 
 ## Usage Guide
