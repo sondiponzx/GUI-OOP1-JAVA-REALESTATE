@@ -108,6 +108,7 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         saveButton.setBounds(590, 310, 100, 30);
         saveButton.addActionListener(this);
         panel.add(saveButton);
+		//Load button
         loadButton = new JButton("Load");
         loadButton.setBounds(700, 310, 100, 30);
         loadButton.setBackground(new Color(52, 152, 219));
@@ -127,6 +128,7 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         FileIO.FileIO.loadFromFile(properties);
         updateScreen();
         this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
 void updateScreen() {
