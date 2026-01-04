@@ -99,10 +99,6 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         //Delete button
         deleteButton = new JButton("Delete");
         deleteButton.setBounds(370, 310, 100, 30);
-        deleteButton.setBackground(new Color(231, 76, 60));
-        deleteButton.setForeground(Color.WHITE);
-        deleteButton.setFont(new Font("Arial", Font.BOLD, 12));
-        deleteButton.setFocusPainted(false);
         deleteButton.addActionListener(this);
         panel.add(deleteButton);
         //Clear button
