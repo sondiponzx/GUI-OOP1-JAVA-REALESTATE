@@ -6,29 +6,16 @@ import Entity.Property;
 
 public class FileIO{
     public static void loadFromFile(Property[] properties){
-        Scanner scanner = null;
-        try{
-            File file = new File("FileIO/Store.txt");
-            if(!file.exists()){           
-                return;
-            }
-            scanner = new Scanner(file);
+        File file = new File("FileIO/Store.txt");
+        //if(!file.exists()) return;
+        
+        try(Scanner scanner = new Scanner(file)){
             int idx = 0;
             while(scanner.hasNextLine() && idx < properties.length){
-                String line = scanner.nextLine();
-                if(line.isEmpty()){
-                    continue;
-                }
-                String[] parts = line.split(",");
+                String[] parts = scanner.nextLine().split(",");
                 if(parts.length == 6){
-                    String propertyID = parts[0];
-                    String location = parts[1];
-                    String type = parts[2];
-                    double price = Double.parseDouble(parts[3]);
-                    double size = Double.parseDouble(parts[4]);
-                    String status = parts[5];
-                    properties[idx] = new Property(propertyID, location, type, price, size, status);
-                    idx++;
+                    properties[idx++] = new Property(parts[0], parts[1], parts[2], 
+                        Double.parseDouble(parts[3]), Double.parseDouble(parts[4]), parts[5]);
                 }
             }
         }

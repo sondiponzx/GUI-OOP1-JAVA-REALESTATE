@@ -8,7 +8,9 @@ import Entity.Property;
 
 public class RealEstateManagerPage extends JFrame implements ActionListener {
     JLabel titleLabel, idJLabel, locationLabel,TypeLabel,priceLabel,sizLabel,statusLabel;
-    JTextField idJTextField, locationJTextField,TypeJTextField,priceJTextField,sizeJTextField,statusJTextField;
+    JTextField idJTextField, locationJTextField,priceJTextField,sizeJTextField,statusJTextField;
+    JRadioButton commercialRadio, residentialRadio;
+    ButtonGroup typeGroup;
     JButton addButton, updateButton, deleteButton, clearButton,saveButton, loadButton;
     JTextArea screen;
 
@@ -50,42 +52,55 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         locationJTextField = new JTextField();
         locationJTextField.setBounds(350, 100, 200, 25);
         panel.add(locationJTextField);
-        //Type Label
-        TypeLabel = new JLabel("Type:");
-        TypeLabel.setBounds(250, 140, 100, 25);
-        TypeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        panel.add(TypeLabel);
-        //Type TextField
-        TypeJTextField = new JTextField();
-        TypeJTextField.setBounds(350, 140, 200, 25);
-        panel.add(TypeJTextField);
         //Price Label
         priceLabel = new JLabel("Price:");
-        priceLabel.setBounds(250, 180, 100, 25);
+        priceLabel.setBounds(250, 140, 100, 25);
         priceLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         panel.add(priceLabel);
         //Price TextField
         priceJTextField = new JTextField();
-        priceJTextField.setBounds(350, 180, 200, 25);   
+        priceJTextField.setBounds(350, 140, 200, 25);   
         panel.add(priceJTextField);
         //Size Label
         sizLabel = new JLabel("Size:"); 
-        sizLabel.setBounds(250, 220, 100, 25);
+        sizLabel.setBounds(250, 180, 100, 25);
         sizLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         panel.add(sizLabel);
         //Size TextField
         sizeJTextField = new JTextField();
-        sizeJTextField.setBounds(350, 220, 200, 25);
+        sizeJTextField.setBounds(350, 180, 200, 25);
         panel.add(sizeJTextField);
         //Status Label
         statusLabel = new JLabel("Status:");
-        statusLabel.setBounds(250, 260, 100, 25);
+        statusLabel.setBounds(250, 220, 100, 25);
         statusLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         panel.add(statusLabel);
         //Status TextField
         statusJTextField = new JTextField();
-        statusJTextField.setBounds(350, 260, 200, 25);
+        statusJTextField.setBounds(350, 220, 200, 25);
         panel.add(statusJTextField);
+        //Type Label
+        TypeLabel = new JLabel("Type:");
+        TypeLabel.setBounds(250, 260, 100, 25);
+        TypeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        panel.add(TypeLabel);
+        //Type Radio Buttons
+        commercialRadio = new JRadioButton("Commercial");
+        commercialRadio.setBounds(350, 260, 100, 25);
+        commercialRadio.setBackground(new Color(200,220,255));
+        commercialRadio.setFont(new Font("Arial", Font.PLAIN, 14));
+        panel.add(commercialRadio);
+        
+        residentialRadio = new JRadioButton("Residential");
+        residentialRadio.setBounds(460, 260, 100, 25);
+        residentialRadio.setBackground(new Color(200,220,255));
+        residentialRadio.setFont(new Font("Arial", Font.PLAIN, 14));
+        panel.add(residentialRadio);
+        
+        typeGroup = new ButtonGroup();
+        typeGroup.add(commercialRadio);
+        typeGroup.add(residentialRadio);
+        commercialRadio.setSelected(true);
         //Add button
         addButton = new JButton("Add");
         addButton.setBounds(150, 310, 100, 30);
@@ -156,17 +171,19 @@ void updateScreen() {
         try {
             if (e.getSource() == addButton) {
                 String id = idJTextField.getText();
+                String type = commercialRadio.isSelected() ? "Commercial" : "Residential";
                 if (!idExists(id)) {
-                    properties[getEmptyIndex()] = new Property(id, locationJTextField.getText(), TypeJTextField.getText(), 
+                    properties[getEmptyIndex()] = new Property(id, locationJTextField.getText(), type, 
                             Double.parseDouble(priceJTextField.getText()), Double.parseDouble(sizeJTextField.getText()), statusJTextField.getText());
                     updateScreen();
                 } else JOptionPane.showMessageDialog(this, "ID already exists!");
             } else if (e.getSource() == updateButton) {
                 String id = idJTextField.getText();
+                String type = commercialRadio.isSelected() ? "Commercial" : "Residential";
                 int idx = getIndexById(id);
                 if (idx != -1) {
                     properties[idx].setLocation(locationJTextField.getText());
-                    properties[idx].setType(TypeJTextField.getText());
+                    properties[idx].setType(type);
                     properties[idx].setPrice(Double.parseDouble(priceJTextField.getText()));
                     properties[idx].setSize(Double.parseDouble(sizeJTextField.getText()));
                     properties[idx].setStatus(statusJTextField.getText());
@@ -183,7 +200,8 @@ void updateScreen() {
                 FileIO.FileIO.saveChangesToFile(properties);
                 JOptionPane.showMessageDialog(this, "Saved Successfully!");
             } else if (e.getSource() == clearButton) {
-                idJTextField.setText(""); locationJTextField.setText(""); TypeJTextField.setText(""); 
+                idJTextField.setText(""); locationJTextField.setText(""); 
+                commercialRadio.setSelected(true);
                 priceJTextField.setText(""); sizeJTextField.setText(""); statusJTextField.setText("");
             } else if (e.getSource() == loadButton) {
                 String id = idJTextField.getText().trim();
@@ -196,7 +214,11 @@ void updateScreen() {
                     Property p = properties[idx];
                     idJTextField.setText(p.getPropertyID());
                     locationJTextField.setText(p.getLocation());
-                    TypeJTextField.setText(p.getType());
+                    if (p.getType().equalsIgnoreCase("Commercial")) {
+                        commercialRadio.setSelected(true);
+                    } else {
+                        residentialRadio.setSelected(true);
+                    }
                     priceJTextField.setText(String.valueOf(p.getPrice()));
                     sizeJTextField.setText(String.valueOf(p.getSize()));
                     statusJTextField.setText(p.getStatus());
