@@ -7,7 +7,6 @@ import Entity.Property;
 public class FileIO{
     public static void loadFromFile(Property[] properties){
         File file = new File("FileIO/Store.txt");
-        //if(!file.exists()) return;
         
         try(Scanner scanner = new Scanner(file)){
             int idx = 0;
@@ -27,6 +26,7 @@ public class FileIO{
 public static void saveChangesToFile(Property[] properties){
     try{
         FileWriter writer = new FileWriter("FileIO/Store.txt");
+
         for(int i = 0; i < properties.length; i++){
             if(properties[i] != null){
                 Property p = properties[i];
@@ -34,12 +34,12 @@ public static void saveChangesToFile(Property[] properties){
                              p.getPrice() + "," + p.getSize() + "," + p.getStatus() + "\n");
             }
         }
-        writer.close();
+    writer.close();
     }
     catch(Exception e){
         System.out.println("Error saving to file: " + e.getMessage());
     }
 }
-
 }
+
 
