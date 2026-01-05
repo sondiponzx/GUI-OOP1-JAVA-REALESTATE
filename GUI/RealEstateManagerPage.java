@@ -186,21 +186,21 @@ void updateScreen() {
                 idJTextField.setText(""); locationJTextField.setText(""); TypeJTextField.setText(""); 
                 priceJTextField.setText(""); sizeJTextField.setText(""); statusJTextField.setText("");
             } else if (e.getSource() == loadButton) {
-                try {
-                    int serial = Integer.parseInt(idJTextField.getText());
-                    int idx = getIndexBySerial(serial);
-                    if (idx != -1) {
-                        Property p = properties[idx];
-                        idJTextField.setText(p.getPropertyID());
-                        locationJTextField.setText(p.getLocation());
-                        TypeJTextField.setText(p.getType());
-                        priceJTextField.setText(String.valueOf(p.getPrice()));
-                        sizeJTextField.setText(String.valueOf(p.getSize()));
-                        statusJTextField.setText(p.getStatus());
-                    } else JOptionPane.showMessageDialog(this, "Property not found! Enter a valid serial number.");
-                } catch (NumberFormatException nfe) {
-                    JOptionPane.showMessageDialog(this, "Enter a valid serial number!");
+                String id = idJTextField.getText().trim();
+                if (id.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Enter a Property ID to load!");
+                    return;
                 }
+                int idx = getIndexById(id);
+                if (idx != -1) {
+                    Property p = properties[idx];
+                    idJTextField.setText(p.getPropertyID());
+                    locationJTextField.setText(p.getLocation());
+                    TypeJTextField.setText(p.getType());
+                    priceJTextField.setText(String.valueOf(p.getPrice()));
+                    sizeJTextField.setText(String.valueOf(p.getSize()));
+                    statusJTextField.setText(p.getStatus());
+                } else JOptionPane.showMessageDialog(this, "Property not found! Enter a valid Property ID.");
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Enter valid numeric values for Price and Size!");
