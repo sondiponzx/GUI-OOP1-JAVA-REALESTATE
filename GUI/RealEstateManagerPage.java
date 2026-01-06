@@ -5,129 +5,129 @@ import java.awt.*;
 import java.awt.event.*;
 import Entity.Property;
 
-
-public class RealEstateManagerPage extends JFrame implements ActionListener {
-    JLabel titleLabel, idJLabel, locationLabel,TypeLabel,priceLabel,sizLabel,statusLabel;
-    JTextField idJTextField, locationJTextField,priceJTextField,sizeJTextField,statusJTextField;
-    JRadioButton commercialRadio, residentialRadio;
-    ButtonGroup typeGroup;
-    JButton addButton, updateButton, deleteButton, clearButton,saveButton, loadButton;
-    JTextArea screen;
-
-    Property[] properties = new Property[100];
-
-    public RealEstateManagerPage(){
-       
-        super("Real Estate Property Storing");
-        this.setSize(900,750);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(null);
-        
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-        panel.setBounds(0,0,900,750);
-        panel.setBackground(new Color(200,220,255));
-        this.add(panel);
-        
-        titleLabel = new JLabel("Real Estate Property Storing ");
-        titleLabel.setBounds(250, 10, 400, 30);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setForeground(new Color(0,0,128));
-        panel.add(titleLabel);
-        
-        idJLabel = new JLabel("Property ID:");
-        idJLabel.setBounds(250, 60, 100, 25);
-        idJLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        panel.add(idJLabel);
-        
-        idJTextField = new JTextField();
-        idJTextField.setBounds(350, 60, 200, 25);
-        panel.add(idJTextField);
-        
-        locationLabel = new JLabel("Location:");
-        locationLabel.setBounds(250, 100, 100, 25);
-        locationLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        panel.add(locationLabel);
-        
-        locationJTextField = new JTextField();
-        locationJTextField.setBounds(350, 100, 200, 25);
-        panel.add(locationJTextField);
-        
-        priceLabel = new JLabel("Price:");
-        priceLabel.setBounds(250, 140, 100, 25);
-        priceLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        panel.add(priceLabel);
-        
-        priceJTextField = new JTextField();
-        priceJTextField.setBounds(350, 140, 200, 25);   
-        panel.add(priceJTextField);
-        
-        sizLabel = new JLabel("Size:"); 
-        sizLabel.setBounds(250, 180, 100, 25);
-        sizLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        panel.add(sizLabel);
-        
-        sizeJTextField = new JTextField();
-        sizeJTextField.setBounds(350, 180, 200, 25);
-        panel.add(sizeJTextField);
-        
-        statusLabel = new JLabel("Status:");
-        statusLabel.setBounds(250, 220, 100, 25);
-        statusLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        panel.add(statusLabel);
-        
-        statusJTextField = new JTextField();
-        statusJTextField.setBounds(350, 220, 200, 25);
-        panel.add(statusJTextField);
-        
-        TypeLabel = new JLabel("Type:");
-        TypeLabel.setBounds(250, 260, 100, 25);
-        TypeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        panel.add(TypeLabel);
-        
-        commercialRadio = new JRadioButton("Commercial");
-        commercialRadio.setBounds(350, 260, 100, 25);
-        commercialRadio.setBackground(new Color(200,220,255));
-        commercialRadio.setFont(new Font("Arial", Font.PLAIN, 14));
-        panel.add(commercialRadio);
-        
-        residentialRadio = new JRadioButton("Residential");
-        residentialRadio.setBounds(460, 260, 100, 25);
-        residentialRadio.setBackground(new Color(200,220,255));
-        residentialRadio.setFont(new Font("Arial", Font.PLAIN, 14));
-        panel.add(residentialRadio);
-        
-        typeGroup = new ButtonGroup();
-        typeGroup.add(commercialRadio);
-        typeGroup.add(residentialRadio);
-        commercialRadio.setSelected(true);
-        
-        addButton = new JButton("Add");
-        addButton.setBounds(150, 310, 100, 30);
-        addButton.addActionListener(this);
-        panel.add(addButton);
-        
-        updateButton = new JButton("Update");
-        updateButton.setBounds(260, 310, 100, 30);
-        updateButton.addActionListener(this);
-        panel.add(updateButton);
-        
-        deleteButton = new JButton("Delete");
-        deleteButton.setBounds(370, 310, 100, 30);
-        deleteButton.addActionListener(this);
-        panel.add(deleteButton);
-        
-        clearButton = new JButton("Clear");
-        clearButton.setBounds(480, 310, 100, 30);
-        clearButton.addActionListener(this);
-        panel.add(clearButton);
-        
-        saveButton = new JButton("Save");
-        saveButton.setBounds(590, 310, 100, 30);
-        saveButton.addActionListener(this);
-        panel.add(saveButton);
+public class RealEstateManagerPage extends JFrame implements ActionListener{
+	JLabel titleLabel,idJLabel,locationLabel,TypeLabel,priceLabel,sizeLabel,statusLabel;
+	JTextField idJTextField, locationJTextField,priceJTextField,sizeJTextField,statusJTextField;
+	JRadioButton commercialRadio, residentRadio;
+	ButtonGroup typeGroup;
+	JButton addButton, updateButton, deletButton,clearButton,saveButton,loadButton;
+	JTextArea screen;
+	
+	
+	Property[] properties = new Property[100];
+	
+	public RealEstateManagerPage(){
 		
-        loadButton = new JButton("Load");
+		super("Real Estate Property Storing");
+		this.setSize(900,750);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBounds(0,0,900,750);
+		panel.setBackground(new Color(200,220,255));
+		this.add(panel);
+		
+		titleLabel = new JLabel("Real Estate Property Storing");
+		titleLabel.setBounds(250,10,400,30);
+		titleLabel.setFont(new Font("Arial", Font.BOLD,24));
+		titleLabel.setForeground(new Color(0,0,128));
+		panel.add(titleLabel);
+		
+		idJLabel = new JLabel("Property ID:");
+		idJLabel.setBounds(250,60,100,25);
+		idJLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		panel.add(idJLabel);
+		
+		idJTextField = new JTextField();
+		idJTextField.setBounds(350,60,200,25);
+		panel.add(idJTextField);
+		
+		locationLabel = new JLabel("Location:");
+		locationLabel.setBounds(250,100,100,25);
+		locationLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		panel.add(locationLabel);
+		
+		locationJTextField = new JTextField();
+		locationJTextField.setBounds(350,100,200,25);
+		panel.add(locationJTextField);
+		
+		priceLabel = new JLabel("Price:");
+		priceLabel.setBounds(250,140,100,25);
+		priceLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		panel.add(priceLabel);
+		
+		priceJTextField = new JTextField();
+		priceJTextField.setBounds(350,140,200,25);
+		panel.add(priceJTextField);
+		
+		sizeLabel = new JLabel("Size:");
+		sizeLabel.setBounds(250,180,100,25);
+		sizeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		panel.add(sizeLabel);
+		
+		sizeJTextField = new JTextField();
+		sizeJTextField.setBounds(350,180,200,25);
+		panel.add(sizeJTextField);
+		
+		statusLabel = new JLabel("Status:");
+		statusLabel.setBounds(250,220,100,25);
+		statusLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		panel.add(statusLabel);
+		
+		statusJTextField = new JTextField();
+		statusJTextField.setBounds(350,220,200,25);
+		panel.add(statusJTextField);
+		
+		TypeLabel = new JLabel("Type:");
+		TypeLabel.setBounds(250,260,100,25);
+		TypeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		panel.add(TypeLabel);
+		
+		commercialRadio = new JRadioButton("Commercial");
+		commercialRadio.setBounds(350,260,100,25);
+		commercialRadio.setBackground(new Color(200,220,255));
+		commercialRadio.setFont(new Font("Arial", Font.PLAIN, 14));
+		panel.add(commercialRadio);
+		
+		residentRadio = new JRadioButton("Residential");
+		residentRadio.setBounds(460,260,100,25);
+		residentRadio.setBackground(new Color(200,220,255));
+		residentRadio.setFont(new Font("Arial", Font.PLAIN, 14));
+		panel.add(residentRadio);
+		
+		typeGroup = new ButtonGroup();
+		typeGroup.add(commercialRadio);
+		typeGroup.add(residentRadio);
+		commercialRadio.setSelected(true);
+		
+		addButton = new JButton("Add");
+		addButton.setBounds(150,310,100,30);
+		addButton.addActionListener(this);
+		panel.add(addButton);
+		
+		updateButton = new JButton("Update");
+		updateButton.setBounds(260,310,100,30);
+		updateButton.addActionListener(this);
+		panel.add(updateButton);
+		
+		deletButton = new JButton("Delete");
+		deletButton.setBounds(370,310,100,30);
+		deletButton.addActionListener(this);
+		panel.add(deletButton);
+		
+		clearButton = new JButton("Clear");
+		clearButton.setBounds(480,310,100,30);
+		clearButton.addActionListener(this);
+		panel.add(clearButton);
+		
+		saveButton = new JButton("Save");
+		saveButton.setBounds(590,310,100,30);
+		saveButton.addActionListener(this);
+		panel.add(saveButton);
+		
+		loadButton = new JButton("Load");
         loadButton.setBounds(700, 310, 100, 30);
         loadButton.setBackground(new Color(52, 152, 219));
         loadButton.setForeground(Color.WHITE);
@@ -147,13 +147,13 @@ public class RealEstateManagerPage extends JFrame implements ActionListener {
         updateScreen();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-    }
-
+		
+	}
 void updateScreen() {
         String all = "";
         all += String.format("%-6s| %-12s| %-15s| %-12s| %-12s| %-10s| %-10s\n", 
                              "S.No", "Property ID", "Location", "Type", "Price", "Size", "Status");// Column Titles
-        all += "---------------------------------------------------------------------------------------------\n";
+        all += "---------------------------------------------------------------------------------------------\n";// Separator
         int serial = 1;
         for (Property p : properties) {
             if (p != null) {
@@ -189,7 +189,7 @@ void updateScreen() {
                     properties[idx].setStatus(statusJTextField.getText());
                     updateScreen();
                 } else JOptionPane.showMessageDialog(this, "Property not found!");
-            } else if (e.getSource() == deleteButton) {
+            } else if (e.getSource() == deletButton) {
                 String id = idJTextField.getText();
                 int idx = getIndexById(id);
                 if (idx != -1) {
@@ -217,7 +217,7 @@ void updateScreen() {
                     if (p.getType().equalsIgnoreCase("Commercial")) {
                         commercialRadio.setSelected(true);
                     } else {
-                        residentialRadio.setSelected(true);
+                        residentRadio.setSelected(true);
                     }
                     priceJTextField.setText(String.valueOf(p.getPrice()));
                     sizeJTextField.setText(String.valueOf(p.getSize()));
@@ -245,14 +245,19 @@ void updateScreen() {
     return getIndexById(id) != -1;
    }
 
-    int getIndexBySerial(int serial) {
-        int count = 0;
-        for (int i = 0; i < properties.length; i++) {
-            if (properties[i] != null) {
-                count++;
-                if (count == serial) return i;
-            }
-        }
-        return -1;
-    }
+   int getIndexBySerial(int serial)
+   {
+	   int count = 0;
+	   for(int i = 0;i < properties.length; i++)
+	   {
+		   if(properties[i] != null){
+			   count++;
+			   if (count == serial) return i;
+			   
+		   }
+	   }
+	   return -1;
+	   
+   }
+   
 }
