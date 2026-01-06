@@ -23,23 +23,27 @@ public class FileIO{
         }
     }
 
-public static void saveChangesToFile(Property[] properties){
-    try{
-        FileWriter writer = new FileWriter("FileIO/Store.txt");
-
-        for(int i = 0; i < properties.length; i++){
-            if(properties[i] != null){
-                Property p = properties[i];
-                writer.write(p.getPropertyID() + "," + p.getLocation() + "," + p.getType() + "," +
+public static void saveChangesToFile(Property[] properties)
+{
+	try{
+	FileWriter writer = new FileWriter("FileIO/Store.txt");
+	
+	for(int i = 0; i< properties.length;i++){
+		if(properties[i] != null){
+			Property p = properties[i];
+			writer.write(p.getPropertyID() + "," + p.getLocation() + "," + p.getType() + "," +
                              p.getPrice() + "," + p.getSize() + "," + p.getStatus() + "\n");
-            }
-        }
-    writer.close();
-    }
-    catch(Exception e){
-        System.out.println("Error saving to file: " + e.getMessage());
-    }
+		}
+	}
+	writer.close();
 }
+   catch(Exception e)
+    {
+	System.out.println("Error saving file: " + e.getMessage());
+    }
+  }
+ }
 }
+
 
 
